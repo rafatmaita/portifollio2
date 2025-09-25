@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
@@ -12,14 +13,6 @@ const nextConfig = {
         hostname: 'avatars.githubusercontent.com',
       },
     ],
-  },
-  async rewrites() {
-    return [
-      {
-        source: '/images/:path*',
-        destination: '/images/:path*',
-      },
-    ]
   },
 }
 

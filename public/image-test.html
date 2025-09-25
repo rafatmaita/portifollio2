@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-image { width: 200px; height: 200px; object-fit: cover; border: 2px solid #ccc; }
+    </style>
+</head>
+<body>
+    <h1>Image Loading Test</h1>
+    <p>Testing if images load from the public directory:</p>
+    
+    <h2>Test 1: profile.jpg</h2>
+    <img src="/images/profile.jpg" alt="Test Image 1" class="test-image" onerror="this.style.border='2px solid red'; this.alt='FAILED TO LOAD';">
+    
+    <h2>Test 2: rafat.jpg</h2>
+    <img src="/images/rafat.jpg" alt="Test Image 2" class="test-image" onerror="this.style.border='2px solid red'; this.alt='FAILED TO LOAD';">
+    
+    <h2>Test 3: Text file</h2>
+    <p>If you can see this text file content, static files are working:</p>
+    <iframe src="/test.txt" width="300" height="50"></iframe>
+</body>
+</html>

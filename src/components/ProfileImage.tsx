@@ -1,13 +1,23 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
 
 const ProfileImage = () => {
   const [imageError, setImageError] = useState(false)
+  const [currentSrc, setCurrentSrc] = useState('/images/test-image.jpg')
 
   const handleImageError = () => {
-    setImageError(true)
+    console.log('Image failed to load:', currentSrc)
+    if (currentSrc === '/images/test-image.jpg') {
+      console.log('Trying profile.jpg...')
+      setCurrentSrc('/images/profile.jpg')
+    } else if (currentSrc === '/images/profile.jpg') {
+      console.log('Trying SVG placeholder...')
+      setCurrentSrc('/images/placeholder.svg')
+    } else {
+      console.log('All images failed, showing fallback UI')
+      setImageError(true)
+    }
   }
 
   if (imageError) {
@@ -24,13 +34,17 @@ const ProfileImage = () => {
   }
 
   return (
-    <img
-      src="/api/image"
-      alt="Rafat Al-Maita"
-      className="w-full h-full object-cover"
-      onError={handleImageError}
-      onLoad={() => console.log('Image loaded successfully!')}
-    />
+    <div className="relative w-80 h-80 rounded-full overflow-hidden shadow-2xl">
+      <img
+        src={currentSrc}
+        alt="Rafat Al-Maita"
+        className="w-full h-full object-cover"
+        onError={handleImageError}
+        onLoad={() => {
+          console.log('Image loaded successfully:', currentSrc)
+        }}
+      />
+    </div>
   )
 }
 
