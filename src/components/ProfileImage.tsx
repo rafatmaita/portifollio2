@@ -1,17 +1,15 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 
 const ProfileImage = () => {
   const [imageError, setImageError] = useState(false)
-  const [currentSrc, setCurrentSrc] = useState('/images/test-image.jpg')
+  const [currentSrc, setCurrentSrc] = useState('/images/profile.jpg')
 
   const handleImageError = () => {
     console.log('Image failed to load:', currentSrc)
-    if (currentSrc === '/images/test-image.jpg') {
-      console.log('Trying profile.jpg...')
-      setCurrentSrc('/images/profile.jpg')
-    } else if (currentSrc === '/images/profile.jpg') {
+    if (currentSrc === '/images/profile.jpg') {
       console.log('Trying SVG placeholder...')
       setCurrentSrc('/images/placeholder.svg')
     } else {
@@ -35,14 +33,17 @@ const ProfileImage = () => {
 
   return (
     <div className="relative w-80 h-80 rounded-full overflow-hidden shadow-2xl">
-      <img
+      <Image
         src={currentSrc}
         alt="Rafat Al-Maita"
-        className="w-full h-full object-cover"
+        fill
+        className="object-cover"
         onError={handleImageError}
         onLoad={() => {
           console.log('Image loaded successfully:', currentSrc)
         }}
+        priority
+        unoptimized={true}
       />
     </div>
   )
