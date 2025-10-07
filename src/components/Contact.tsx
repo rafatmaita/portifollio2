@@ -1,13 +1,10 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { useInView } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react'
+import { cvData } from '@/data/cvData'
 
 const Contact = () => {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -42,19 +39,19 @@ const Contact = () => {
     {
       icon: Mail,
       title: 'Email',
-      value: 'rafatmaita2030@gmail.com',
-      link: 'mailto:rafatmaita2030@gmail.com'
+      value: cvData.personalInfo.email,
+      link: `mailto:${cvData.personalInfo.email}`
     },
     {
       icon: Phone,
       title: 'Phone',
-      value: '+962-795721257',
-      link: 'tel:+962-795721257'
+      value: cvData.personalInfo.phone,
+      link: `tel:${cvData.personalInfo.phone}`
     },
     {
       icon: MapPin,
       title: 'Location',
-      value: 'Jordan',
+      value: cvData.personalInfo.location,
       link: '#'
     }
   ]
@@ -63,13 +60,13 @@ const Contact = () => {
     {
       icon: Github,
       name: 'GitHub',
-      url: 'https://github.com/rafatmaita',
+      url: cvData.personalInfo.github,
       color: 'hover:text-gray-900 dark:hover:text-white'
     },
     {
       icon: Linkedin,
       name: 'LinkedIn',
-      url: 'https://www.linkedin.com/in/rafat-maita/',
+      url: cvData.personalInfo.linkedin,
       color: 'hover:text-blue-600'
     },
     {
@@ -81,97 +78,76 @@ const Contact = () => {
   ]
 
   return (
-    <section id="contact" className="py-20 bg-white dark:bg-slate-900">
+    <section id="contact" className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white mb-6">
-            Get In <span className="gradient-text">Touch</span>
+        <div className="text-center mb-16">
+          <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-white mb-6 animate-flip-in-x text-glow">
+            Get In <span className="gradient-text text-shimmer">Touch</span>
           </h2>
-          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
-            I'm always interested in new opportunities and exciting projects. 
-            Let's discuss how we can work together!
+          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto animate-fade-in-up animate-delay-100">
+            I&apos;m always interested in new opportunities and exciting projects. 
+            Let&apos;s discuss how we can work together!
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Information */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">
-              Let's Connect
+          <div className="animate-fade-in-left">
+            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-8 text-glow">
+              Let&apos;s Connect
             </h3>
             <p className="text-slate-600 dark:text-slate-300 mb-8">
-              I'm always open to discussing new opportunities, creative projects, 
+              I&apos;m always open to discussing new opportunities, creative projects, 
               or just having a chat about technology and development. Feel free to reach out!
             </p>
 
             <div className="space-y-6 mb-8">
               {contactInfo.map((info, index) => (
-                <motion.a
+                <a
                   key={index}
                   href={info.link}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-                  whileHover={{ x: 10 }}
-                  className="flex items-center p-4 rounded-lg bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors duration-200"
+                  className="flex items-center p-4 rounded-lg bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition-elastic hover-tilt animate-zoom-in glass-effect"
+                  style={{ animationDelay: `${0.2 + index * 0.1}s` }}
                 >
-                  <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mr-4">
+                  <div className="w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mr-4 animate-rotate-in hover-wiggle">
                     <info.icon className="w-6 h-6 text-primary-600 dark:text-primary-400" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-slate-900 dark:text-white">
+                    <h4 className="font-semibold text-slate-900 dark:text-white text-glow">
                       {info.title}
                     </h4>
                     <p className="text-slate-600 dark:text-slate-300">
                       {info.value}
                     </p>
                   </div>
-                </motion.a>
+                </a>
               ))}
             </div>
 
             {/* Social Links */}
             <div>
-              <h4 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
+              <h4 className="text-lg font-semibold text-slate-900 dark:text-white mb-4 text-glow">
                 Follow Me
               </h4>
               <div className="flex space-x-4">
                 {socialLinks.map((social, index) => (
-                  <motion.a
+                  <a
                     key={index}
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
-                    transition={{ duration: 0.3, delay: 0.6 + index * 0.1 }}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    className={`w-12 h-12 bg-slate-100 dark:bg-slate-800 rounded-lg flex items-center justify-center text-slate-600 dark:text-slate-400 transition-colors duration-200 ${social.color}`}
+                    className={`w-12 h-12 bg-slate-100 dark:bg-slate-800 rounded-lg flex items-center justify-center text-slate-600 dark:text-slate-400 transition-elastic hover-bounce animate-bounce-in ${social.color}`}
+                    style={{ animationDelay: `${0.1 + index * 0.1}s` }}
                   >
-                    <social.icon className="w-6 h-6" />
-                  </motion.a>
+                    <social.icon className="w-6 h-6 animate-heartbeat" />
+                  </a>
                 ))}
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
+          <div className="animate-fade-in-right">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
@@ -185,7 +161,7 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-slate-800 text-slate-900 dark:text-white transition-colors duration-200"
+                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-slate-800 text-slate-900 dark:text-white transition-elastic hover-glow"
                     placeholder="Your Name"
                   />
                 </div>
@@ -200,7 +176,7 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-slate-800 text-slate-900 dark:text-white transition-colors duration-200"
+                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-slate-800 text-slate-900 dark:text-white transition-elastic hover-glow"
                     placeholder="your.email@example.com"
                   />
                 </div>
@@ -231,16 +207,14 @@ const Contact = () => {
                   onChange={handleInputChange}
                   required
                   rows={6}
-                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-slate-800 text-slate-900 dark:text-white transition-colors duration-200 resize-none"
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white dark:bg-slate-800 text-slate-900 dark:text-white transition-elastic hover-glow resize-none"
                   placeholder="Tell me about your project or just say hello!"
                 />
               </div>
-              <motion.button
+              <button
                 type="submit"
                 disabled={isSubmitting}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full bg-primary-600 hover:bg-primary-700 disabled:bg-primary-400 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center"
+                className="w-full bg-primary-600 hover:bg-primary-700 disabled:bg-primary-400 text-white font-semibold py-3 px-6 rounded-lg transition-elastic hover-bounce flex items-center justify-center neon-border"
               >
                 {isSubmitting ? (
                   <>
@@ -253,22 +227,17 @@ const Contact = () => {
                     Send Message
                   </>
                 )}
-              </motion.button>
+              </button>
             </form>
-          </motion.div>
+          </div>
         </div>
 
         {/* Footer */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="mt-20 pt-8 border-t border-slate-200 dark:border-slate-700 text-center"
-        >
-          <p className="text-slate-600 dark:text-slate-400">
-            © 2024 Rafat Al-Maita. Built with Next.js, TypeScript, and Tailwind CSS.
+        <div className="mt-20 pt-8 border-t border-slate-200 dark:border-slate-700 text-center animate-fade-in-up">
+          <p className="text-slate-600 dark:text-slate-400 text-glow">
+            © 2024 {cvData.personalInfo.name}. Built with Next.js, TypeScript, and Tailwind CSS.
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   )
